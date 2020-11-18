@@ -1,10 +1,20 @@
 package view;
 
+import dao.MedicineDAO;
+import javax.swing.JOptionPane;
+import model.Medicine;
+import table.MedicineTableModel;
+
 public class MedicineView extends javax.swing.JFrame {
+
+    Medicine medicine = new Medicine();
+    MedicineDAO medicineDAO = new MedicineDAO();
 
     public MedicineView() {
         initComponents();
         setLocationRelativeTo(null);
+        tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+        btnDelete.setEnabled(false);
     }
 
     /**
@@ -16,59 +26,281 @@ public class MedicineView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tfName = new javax.swing.JTextField();
+        tfDescription = new javax.swing.JTextField();
+        tfComposition = new javax.swing.JTextField();
+        tfPrice = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbMedicines = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        tfSearch = new javax.swing.JTextField();
+        tfCode = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Medicine");
         setResizable(false);
+
+        jLabel1.setText("Name");
+
+        jLabel2.setText("Description");
+
+        jLabel3.setText("Composition");
+
+        jLabel4.setText("Price");
+
+        tfName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNameActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        tbMedicines.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbMedicines.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMedicinesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbMedicines);
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel5.setText("Search by Name:");
+
+        tfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSearchActionPerformed(evt);
+            }
+        });
+        tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSearchKeyPressed(evt);
+            }
+        });
+
+        tfCode.setEditable(false);
+        tfCode.setBackground(new java.awt.Color(204, 204, 204));
+        tfCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCodeActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Code");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(100, 100, 100)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addGap(24, 24, 24)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfComposition, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfCode, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel6))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tfCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(tfComposition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDelete)
+                    .addComponent(btnSave)
+                    .addComponent(btnClear))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicineView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicineView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicineView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicineView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNameActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MedicineView().setVisible(true);
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (tfName.getText().isEmpty() || tfPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter the Name and Price fields", "Warning!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (tfCode.getText().isEmpty()) {
+                // insert new
+                medicine.setName(tfName.getText());
+                medicine.setDescription(tfDescription.getText());
+                medicine.setComposition(tfComposition.getText());
+                medicine.setPrice(Double.parseDouble(tfPrice.getText()));
+                medicineDAO.create(medicine);
+            } else {
+                // update
+                medicine.setCode(Integer.parseInt(tfCode.getText()));
+                medicine.setName(tfName.getText());
+                medicine.setDescription(tfDescription.getText());
+                medicine.setComposition(tfComposition.getText());
+                medicine.setPrice(Double.parseDouble(tfPrice.getText()));
+                medicineDAO.update(medicine);
             }
-        });
-    }
+        }
+        tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+        tfCode.setText(null);
+        tfName.setText(null);
+        tfDescription.setText(null);
+        tfComposition.setText(null);
+        tfPrice.setText(null);
+        tfSearch.setText(null);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void tfCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCodeActionPerformed
+
+    private void tbMedicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMedicinesMouseClicked
+        tfCode.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_CODE_COL).toString());
+        tfName.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_NAME_COL).toString());
+        tfDescription.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_DESCRIPTION_COL).toString());
+        tfComposition.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString());
+        tfPrice.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_PRICE_COL).toString());
+        btnDelete.setEnabled(true);
+    }//GEN-LAST:event_tbMedicinesMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+        tfCode.setText(null);
+        tfName.setText(null);
+        tfDescription.setText(null);
+        tfComposition.setText(null);
+        tfPrice.setText(null);
+        tfSearch.setText(null);
+        btnDelete.setEnabled(false);
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int choice = JOptionPane.showConfirmDialog(null, "Are you sure?", "Medicine - Deletion", JOptionPane.YES_NO_OPTION);
+        if (choice == 0) {
+            int code = Integer.parseInt(tfCode.getText());
+            medicineDAO.delete(code);
+            tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+            tfCode.setText(null);
+            tfName.setText(null);
+            tfDescription.setText(null);
+            tfComposition.setText(null);
+            tfPrice.setText(null);
+            tfSearch.setText(null);
+            btnDelete.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSearchActionPerformed
+
+    private void tfSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyPressed
+        String search = tfSearch.getText();
+        tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().searchByName(search)));
+    }//GEN-LAST:event_tfSearchKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbMedicines;
+    private javax.swing.JTextField tfCode;
+    private javax.swing.JTextField tfComposition;
+    private javax.swing.JTextField tfDescription;
+    private javax.swing.JTextField tfName;
+    private javax.swing.JTextField tfPrice;
+    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,19 +8,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class MedicineDAO {
-    
+
     private Connection conn;
     private PreparedStatement stmt;
     private Statement st;
     private ResultSet rs;
     private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
-    
-    public Connection  MedicineDao(){
+
+    public MedicineDAO() {
         conn = new ConnectionFactory().getConnection();
-        return conn;
     }
-    
-    public void create(Medicine medicine){
+
+    public void create(Medicine medicine) {
         String sql = "INSERT INTO medicines  (name, description, composition, price) VALUES (?, ?, ?, ?)";
         try {
             stmt = conn.prepareStatement(sql);
@@ -34,13 +33,13 @@ public class MedicineDAO {
             throw new RuntimeException("Error: " + error);
         }
     }
-    
-    public ArrayList<Medicine> list(){
+
+    public ArrayList<Medicine> list() {
         String sql = "SELECT * FROM medicines";
         try {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Medicine medicine = new Medicine();
                 medicine.setCode(rs.getInt("code"));
                 medicine.setName(rs.getString("name"));
@@ -54,8 +53,8 @@ public class MedicineDAO {
         }
         return medicines;
     }
-    
-     public void update(Medicine medicine){
+
+    public void update(Medicine medicine) {
         String sql = "UPDATE medicines SET name = ?, description = ?, composition = ?, price = ? WHERE code = ? ";
         try {
             stmt = conn.prepareStatement(sql);
@@ -70,8 +69,8 @@ public class MedicineDAO {
             throw new RuntimeException("Error: " + error);
         }
     }
-     
-      public void delete(int code){
+
+    public void delete(int code) {
         String sql = "DELETE FROM medicines WHERE code = " + code;
         try {
             st = conn.createStatement();
@@ -81,5 +80,25 @@ public class MedicineDAO {
             throw new RuntimeException("Error: " + error);
         }
     }
-      
+
+    public ArrayList<Medicine> searchByName(String search) {
+        String sql = "SELECT * FROM medicines WHERE name LIKE '%" + search + "%' ";
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Medicine medicine = new Medicine();
+                medicine.setCode(rs.getInt("code"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setComposition(rs.getString("composition"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicines.add(medicine);
+            }
+        } catch (Exception error) {
+            throw new RuntimeException("Error: " + error);
+        }
+        return medicines;
+    }
+
 }

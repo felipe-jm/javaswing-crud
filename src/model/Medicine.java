@@ -1,7 +1,7 @@
 package model;
 
 public class Medicine {
-    
+
     private int code;
     private String name;
     private String description;
@@ -47,5 +47,5 @@ public class Medicine {
     public void setComposition(String composition) {
         this.composition = composition;
     }
-        
+
 }
