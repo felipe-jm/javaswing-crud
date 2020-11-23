@@ -10,7 +10,7 @@ public class MedicineTableModel extends AbstractTableModel {
     public static final int MEDICINE_NAME_COL = 1;
     public static final int MEDICINE_DESCRIPTION_COL = 2;
     public static final int MEDICINE_COMPOSITION_COL = 3;
-    public static final int MEDICINE_PRICE_COL = 2;
+    public static final int MEDICINE_PRICE_COL = 4;
     public ArrayList<Medicine> medicines;
 
     public MedicineTableModel(ArrayList<Medicine>list) {

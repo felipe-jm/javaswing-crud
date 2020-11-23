@@ -225,6 +225,7 @@ public class MedicineView extends javax.swing.JFrame {
                 medicine.setPrice(Double.parseDouble(tfPrice.getText()));
                 medicineDAO.update(medicine);
             }
+
         }
         tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
         tfCode.setText(null);
@@ -240,12 +241,14 @@ public class MedicineView extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCodeActionPerformed
 
     private void tbMedicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMedicinesMouseClicked
+        System.out.print(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString().length());
+        System.out.print(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString().strip().length());
         tfCode.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_CODE_COL).toString());
         tfName.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_NAME_COL).toString());
         tfDescription.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_DESCRIPTION_COL).toString());
         tfComposition.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString());
         tfPrice.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_PRICE_COL).toString());
-        btnDelete.setEnabled(true);
+        btnDelete.setEnabled(true);    
     }//GEN-LAST:event_tbMedicinesMouseClicked
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
