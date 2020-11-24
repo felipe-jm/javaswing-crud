@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import model.Medicine;
 
+// Classe utlizada para poder preencher a tabela de remédios no JFrame
 public class MedicineTableModel extends AbstractTableModel {
 
     public static final int MEDICINE_CODE_COL = 0;

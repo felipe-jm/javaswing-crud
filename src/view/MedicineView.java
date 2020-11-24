@@ -205,19 +205,21 @@ public class MedicineView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNameActionPerformed
 
+    // Cria ou atualizado um remédio
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (tfName.getText().isEmpty() || tfPrice.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter the Name and Price fields", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
+            // Se não há nenhum código no TextField de código então será criado um novo remédio
             if (tfCode.getText().isEmpty()) {
-                // insert new
+                // Criar novo
                 medicine.setName(tfName.getText());
                 medicine.setDescription(tfDescription.getText());
                 medicine.setComposition(tfComposition.getText());
                 medicine.setPrice(Double.parseDouble(tfPrice.getText()));
                 medicineDAO.create(medicine);
             } else {
-                // update
+                // Atualizar existente
                 medicine.setCode(Integer.parseInt(tfCode.getText()));
                 medicine.setName(tfName.getText());
                 medicine.setDescription(tfDescription.getText());
@@ -225,7 +227,6 @@ public class MedicineView extends javax.swing.JFrame {
                 medicine.setPrice(Double.parseDouble(tfPrice.getText()));
                 medicineDAO.update(medicine);
             }
-
         }
         tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
         tfCode.setText(null);
@@ -240,17 +241,17 @@ public class MedicineView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCodeActionPerformed
 
+    // Preenche os inputs com os valores do remédio selecionado na tabela
     private void tbMedicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMedicinesMouseClicked
-        System.out.print(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString().length());
-        System.out.print(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString().strip().length());
         tfCode.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_CODE_COL).toString());
         tfName.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_NAME_COL).toString());
         tfDescription.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_DESCRIPTION_COL).toString());
         tfComposition.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_COMPOSITION_COL).toString());
         tfPrice.setText(tbMedicines.getValueAt(tbMedicines.getSelectedRow(), MedicineTableModel.MEDICINE_PRICE_COL).toString());
-        btnDelete.setEnabled(true);    
+        btnDelete.setEnabled(true);
     }//GEN-LAST:event_tbMedicinesMouseClicked
 
+    // Limpa todos os campos
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
         tfCode.setText(null);
@@ -262,9 +263,12 @@ public class MedicineView extends javax.swing.JFrame {
         btnDelete.setEnabled(false);
     }//GEN-LAST:event_btnClearActionPerformed
 
+    // Deleta um remédio selecionado
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // Aciona uma janela para confirmar a exclusão do remédio
         int choice = JOptionPane.showConfirmDialog(null, "Are you sure?", "Medicine - Deletion", JOptionPane.YES_NO_OPTION);
         if (choice == 0) {
+            // Se a exclusão foi confirmada o remédio é excluído
             int code = Integer.parseInt(tfCode.getText());
             medicineDAO.delete(code);
             tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
@@ -282,6 +286,7 @@ public class MedicineView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSearchActionPerformed
 
+    // Preenche a tabela de acordo com os resultados da pesquisa
     private void tfSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyPressed
         String search = tfSearch.getText();
         tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().searchByName(search)));

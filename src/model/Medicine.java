@@ -1,5 +1,6 @@
 package model;
 
+// Classe que define um remédio e permite acesso a seus atributos via métodos getters e setters
 public class Medicine {
 
     private int code;

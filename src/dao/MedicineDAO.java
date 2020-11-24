@@ -7,6 +7,11 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+/*
+Classe utilizada para realizar os CRUDS
+DAO = Data Access Object
+*/
+
 public class MedicineDAO {
 
     private Connection conn;
@@ -19,6 +24,7 @@ public class MedicineDAO {
         conn = new ConnectionFactory().getConnection();
     }
 
+    // Cria um novo remédio
     public void create(Medicine medicine) {
         String sql = "INSERT INTO medicines  (name, description, composition, price) VALUES (?, ?, ?, ?)";
         try {
@@ -34,6 +40,7 @@ public class MedicineDAO {
         }
     }
 
+    // Lista todos os remédios
     public ArrayList<Medicine> list() {
         String sql = "SELECT * FROM medicines";
         try {
@@ -54,6 +61,7 @@ public class MedicineDAO {
         return medicines;
     }
 
+    // Atualiza um remédio
     public void update(Medicine medicine) {
         String sql = "UPDATE medicines SET name = ?, description = ?, composition = ?, price = ? WHERE code = ? ";
         try {
@@ -70,6 +78,7 @@ public class MedicineDAO {
         }
     }
 
+    // Deleta um remédio
     public void delete(int code) {
         String sql = "DELETE FROM medicines WHERE code = " + code;
         try {
@@ -81,6 +90,8 @@ public class MedicineDAO {
         }
     }
 
+    // Pesquisa os remédios que batem com o nome passado como parâmetro
+    // (Método utilizado para a funcionalidade de pesquisa)
     public ArrayList<Medicine> searchByName(String search) {
         String sql = "SELECT * FROM medicines WHERE name LIKE '%" + search + "%' ";
         try {
