@@ -7,13 +7,25 @@ import table.MedicineTableModel;
 
 public class MedicineView extends javax.swing.JFrame {
 
+    // Instancia objeto do nosso Model
     Medicine medicine = new Medicine();
+    // Instancia objeto de acesso aos dados do nosso model
     MedicineDAO medicineDAO = new MedicineDAO();
 
+    // metodo construtor da View
     public MedicineView() {
+        // inicializa os componentes visuais, adiciona listeners
         initComponents();
+        // define tamanho da view
+        setSize(945,530);
+        // define posição relativa  a nulo. Isto impede a view de renderizar
+        // no canto superior esquerdo da tela.
         setLocationRelativeTo(null);
+        // Instancia um objeto de acesso ao Model Medicines, executa a listagem
+        // de objetos e retorna para oconstrutor de MedicineTableModel, que é
+        // renderizados na tabela
         tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+        // desabilita botão de delete
         btnDelete.setEnabled(false);
     }
 
@@ -26,6 +38,7 @@ public class MedicineView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tfCode = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -41,8 +54,15 @@ public class MedicineView extends javax.swing.JFrame {
         tbMedicines = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
-        tfCode = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+
+        tfCode.setEditable(false);
+        tfCode.setBackground(new java.awt.Color(204, 204, 204));
+        tfCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCodeActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Medicine");
@@ -116,14 +136,6 @@ public class MedicineView extends javax.swing.JFrame {
             }
         });
 
-        tfCode.setEditable(false);
-        tfCode.setBackground(new java.awt.Color(204, 204, 204));
-        tfCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfCodeActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Code");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,8 +168,7 @@ public class MedicineView extends javax.swing.JFrame {
                                 .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfComposition, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfCode, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel6))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -165,10 +176,8 @@ public class MedicineView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addComponent(jLabel6)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,7 +204,7 @@ public class MedicineView extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,7 +216,9 @@ public class MedicineView extends javax.swing.JFrame {
 
     // Cria ou atualizado um remédio
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // se o nome ou preço estiver vazio, entao
         if (tfName.getText().isEmpty() || tfPrice.getText().isEmpty()) {
+            // exibe um popup para pedir nome e preço
             JOptionPane.showMessageDialog(null, "Please enter the Name and Price fields", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
             // Se não há nenhum código no TextField de código então será criado um novo remédio
@@ -226,15 +237,16 @@ public class MedicineView extends javax.swing.JFrame {
                 medicine.setComposition(tfComposition.getText());
                 medicine.setPrice(Double.parseDouble(tfPrice.getText()));
                 medicineDAO.update(medicine);
-            }
+            }    
+            // atualiza tabela de medicines na tela e limpa campos
+            tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
+            tfCode.setText(null);
+            tfName.setText(null);
+            tfDescription.setText(null);
+            tfComposition.setText(null);
+            tfPrice.setText(null);
+            tfSearch.setText(null);
         }
-        tbMedicines.setModel(new MedicineTableModel(new MedicineDAO().list()));
-        tfCode.setText(null);
-        tfName.setText(null);
-        tfDescription.setText(null);
-        tfComposition.setText(null);
-        tfPrice.setText(null);
-        tfSearch.setText(null);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void tfCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodeActionPerformed
